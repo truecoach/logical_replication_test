@@ -5,6 +5,17 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+
+    @changes = begin
+      res = ActiveRecord::Base.connection.execute(
+        <<~SQL
+          SELECT * FROM pg_logical_slot_get_changes('slot1', NULL, NULL);
+        SQL
+      )
+      JSON.parse(res.to_json)
+    rescue StandardError => e
+      "Unable to show slot changes: #{e.message.chomp}"
+    end
   end
 
   # GET /users/1

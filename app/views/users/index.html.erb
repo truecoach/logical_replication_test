@@ -24,6 +24,12 @@
   </tbody>
 </table>
 
+<h1>Replication slot changes</h1>
+
+<div>
+  <%= JSON.pretty_generate(@changes) %>
+</div>
+
 <br>
 
 <%= link_to 'New User', new_user_path %>

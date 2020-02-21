@@ -16,4 +16,4 @@ production:
   database: streaming_replication_example_production
   username: streaming_replication_example
   password: <%= ENV['STREAMING_REPLICATION_EXAMPLE_DATABASE_PASSWORD'] %>
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['RDS_DATABASE_URL'] %>

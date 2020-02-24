@@ -1,3 +1,5 @@
+# Logical Replication Test
+
 Create a slot (in json format):
 
 ```sql

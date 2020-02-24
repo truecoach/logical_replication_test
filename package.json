@@ -1,5 +1,5 @@
 {
-  "name": "streaming_replication_example",
+  "name": "logical_replication_test",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",

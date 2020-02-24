@@ -1,5 +1,31 @@
 # Logical Replication Test
 
+Almost a dummy app to query a postgres replication slot and see how it behaves.
+
+## Dependencies
+
+- Ruby
+- Postgres
+
+## Local Setup
+
+```bash
+$ bundle install
+$ bundle exec rake db:setup db:migrate db:seed
+```
+
+## Production Setup
+
+Uses an RDS Postgres instance with a follower. See RDS notes below.
+
+PSQL connection string (password omitted):
+
+```psql
+$ psql postgres://postgres:<<password>>@adsteel-investmentday-test.clesovo0kjm6.us-east-2.rds.amazonaws.com:5432/logical_replication_example_production
+```
+
+## Queries to manage replication slots
+
 Create a slot (in json format):
 
 ```sql
@@ -33,8 +59,9 @@ SELECT * FROM pg_logical_slot_get_changes('slot1', NULL, NULL);
     2. Set `rds.logical_replication parameter` to 1
     3. Reboot the database for changes to take effect
 
-2. Create a backup
-3. Create a follower
+2. Add the RDS permission group `rds_replication` to the `postgres` user
+3. Create a backup
+4. Create a follower
 
 More:
 - https://aws.amazon.com/blogs/aws/amazon-rds-for-postgresql-new-minor-versions-logical-replication-dms-and-more/

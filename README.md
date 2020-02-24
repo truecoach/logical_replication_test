@@ -1,24 +1,39 @@
-# README
+Create a slot (in json format):
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```sql
+SELECT * FROM pg_create_logical_replication_slot('slot1', 'wal2json')
+```
 
-Things you may want to cover:
+Drop a slot:
 
-* Ruby version
+```sql
+SELECT pg_drop_replication_slot('slot1');
+```
 
-* System dependencies
+View existing slots:
 
-* Configuration
+```sql
+SELECT * from pg_replication_slots;
+```
 
-* Database creation
+Consume slot entries:
 
-* Database initialization
+```sql
+SELECT * FROM pg_logical_slot_get_changes('slot1', NULL, NULL);
+```
 
-* How to run the test suite
+## RDS Specific Considerations
 
-* Services (job queues, cache servers, search engines, etc.)
+1. Set correct configuration parameters:
+  _The default parameter group is not sufficient._
 
-* Deployment instructions
+    1. Create a new parameter group (will have all the same defaults as the default group)
+    2. Set `rds.logical_replication parameter` to 1
+    3. Reboot the database for changes to take effect
 
-* ...
+2. Create a backup
+3. Create a follower
+
+More:
+- https://aws.amazon.com/blogs/aws/amazon-rds-for-postgresql-new-minor-versions-logical-replication-dms-and-more/
+- https://www.stitchdata.com/docs/integrations/databases/amazon-rds-postgresql/v1#create-replication-slot

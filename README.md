@@ -1,6 +1,9 @@
 # Logical Replication Test
 
-Almost a dummy app to query a postgres replication slot and see how it behaves.
+Demo app to query a postgres replication slot and see how it behaves.
+
+Also has a queue producer and consumer, writing and reading those changes to
+AWS SQS.
 
 ## Dependencies
 
@@ -29,7 +32,7 @@ $ psql postgres://postgres:<<password>>@adsteel-investmentday-test.clesovo0kjm6.
 Create a slot (in json format):
 
 ```sql
-SELECT * FROM pg_create_logical_replication_slot('slot1', 'wal2json')
+SELECT * FROM pg_create_logical_replication_slot('slot1', 'wal2json');
 ```
 
 Drop a slot:
